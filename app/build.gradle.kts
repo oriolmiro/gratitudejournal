@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "org.insbaixcamp.gratitude.journal.daily"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "org.insbaixcamp.gratitude.journal.daily"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_onboarding0">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -22,4 +22,50 @@
         android:name="org.insbaixcamp.gratitude.journal.daily.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_insight"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.insight.InsightFragment"
+        android:label="fragment_insight"
+        tools:layout="@layout/fragment_insight" />
+    <fragment
+        android:id="@+id/navigation_journal"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.journal.JournalFragment"
+        android:label="fragment_journal"
+        tools:layout="@layout/fragment_journal" />
+    <fragment
+        android:id="@+id/navigation_onboarding"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.onboarding.OnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_navigation_onboarding_to_navigation_onboarding2F"
+            app:destination="@id/navigation_onboarding2" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_onboarding3"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.onboarding.Onboarding3Fragment"
+        android:label="fragment_onboarding3"
+        tools:layout="@layout/fragment_onboarding3" >
+        <action
+            android:id="@+id/action_navigation_onboarding3_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_onboarding2"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.onboarding.Onboarding2Fragment"
+        android:label="fragment_onboarding2"
+        tools:layout="@layout/fragment_onboarding2" >
+        <action
+            android:id="@+id/action_onboarding2Fragment_to_onboarding3Fragment"
+            app:destination="@id/navigation_onboarding3" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_onboarding0"
+        android:name="org.insbaixcamp.gratitude.journal.daily.ui.onboarding.Onboarding0Fragment"
+        android:label="fragment_onboarding0"
+        tools:layout="@layout/fragment_onboarding0" >
+        <action
+            android:id="@+id/action_navigation_onboarding0_to_navigation_onboarding"
+            app:destination="@id/navigation_onboarding" />
+    </fragment>
 </navigation>
