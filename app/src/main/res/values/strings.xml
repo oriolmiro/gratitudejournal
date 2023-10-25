@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Gratitude Journal</string>
     <string name="title_home">Journal</string>
     <string name="title_dashboard">Insight</string>
     <string name="title_notifications">Settings</string>
     <string name="cultivate_gratitude">Cultivate Gratitude</string>
     <string name="next">Next</string>
+    <string name="whats_your_name">What\'s your name?</string>
 </resources>

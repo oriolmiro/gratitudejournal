@@ -1,6 +1,7 @@
 package org.insbaixcamp.gratitude.journal.daily;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -15,8 +16,9 @@ import org.insbaixcamp.gratitude.journal.daily.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    public ActivityMainBinding binding;
     private FirebaseAnalytics mFirebaseAnalytics;
+    public BottomNavigationView navView;
 
 
     @Override
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_onboarding0,R.id.navigation_onboarding,

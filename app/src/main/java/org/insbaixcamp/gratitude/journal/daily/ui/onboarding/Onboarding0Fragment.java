@@ -11,6 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 
 public class Onboarding0Fragment extends Fragment {
@@ -23,6 +27,9 @@ public class Onboarding0Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_onboarding0, container, false);
+
+        //Esconder BottonNavigationBar
+        //((MainActivity)getContext()).binding.navView.setVisibility(View.INVISIBLE); // O View.VISIBLE para mostrarlo nuevamente
 
         // Crear un Handler y postergar la navegación
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
