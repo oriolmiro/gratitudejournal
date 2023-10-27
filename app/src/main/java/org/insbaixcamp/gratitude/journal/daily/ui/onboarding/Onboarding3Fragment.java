@@ -20,19 +20,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentOnboarding3Binding;
-import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentOnboardingBinding;
 
 public class Onboarding3Fragment extends Fragment {
 
     private FragmentOnboarding3Binding binding;
-    private SharedPreferences sharedPreferences;
+    private TextInputEditText usuari;
     private Button btnNext2;
-
 
     public static Onboarding3Fragment newInstance() {
         return new Onboarding3Fragment();
@@ -41,45 +39,51 @@ public class Onboarding3Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentOnboarding3Binding.inflate(inflater,container,false);
+        binding = FragmentOnboarding3Binding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        ((MainActivity)getContext()).binding.navView.setVisibility(View.INVISIBLE);
 
+        usuari = (TextInputEditText) binding.tfOnboarding3.getEditText();
         btnNext2 = binding.btnOnboarding3;
         btnNext2.setEnabled(false);
-        binding.tvOnboarding3.addTextChangedListener(new TextWatcher() {
+
+        usuari.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() >= 0){
-                    btnNext2.setEnabled(true);
-                }else{
-                    btnNext2.setEnabled(false);
-                }
+                // Aquí verificamos si el campo de entrada tiene texto y habilitamos o deshabilitamos el botón "Next"
+                boolean isInputEmpty = s.toString().trim().isEmpty();
+                btnNext2.setEnabled(!isInputEmpty);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
-        sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-
-
-
-        //TextInputLayout tfonboarding3 = binding.tfOnboarding3;
 
         btnNext2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-                NavController navController = navHostFragment.getNavController();
-                navController.navigate(R.id.navigation_home);
+                String userName = usuari.getText().toString().trim();
+
+                if (!userName.isEmpty()) {
+                    // Guardar el nombre de usuario en SharedPreferences
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userName", userName);
+                    editor.apply();
+
+                    // Navegar a la pantalla de inicio
+                    NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+                    NavController navController = navHostFragment.getNavController();
+                    navController.navigate(R.id.navigation_home);
+                } else {
+
+                }
+
             }
         });
         return root;
@@ -90,5 +94,4 @@ public class Onboarding3Fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // TODO: Use the ViewModel
     }
-
 }
