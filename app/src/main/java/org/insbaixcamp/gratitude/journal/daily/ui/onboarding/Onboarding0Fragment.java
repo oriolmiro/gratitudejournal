@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
+import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 
 public class Onboarding0Fragment extends Fragment {
 
@@ -43,9 +44,18 @@ public class Onboarding0Fragment extends Fragment {
     }
 
     private void navigateToOnboardingFragment() {
-        // Realizar la navegación a OnboardingFragment
+        SettingsManager settingsManager = new SettingsManager(getContext()); // Suponiendo que tienes una instancia de SettingsManager
+        int openCount = settingsManager.addCount();
+
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
-        navController.navigate(R.id.navigation_onboarding);
+
+      if (openCount == 1 && settingsManager.isOnboardingFinished()) {
+            navController.navigate(R.id.navigation_onboarding);
+        }
+      else{
+          navController.navigate(R.id.navigation_home);
+
+      }
     }
 }
