@@ -14,22 +14,237 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="117dp"
-            tools:layout_editor_absoluteY="219dp" />
+            android:background="#B3B0B0"
+
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_entry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/abeezee"
+                android:maxLines="1"
+                android:text="TextView"
+                android:textColor="#2B2929"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_entry_phrase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/abeezee"
+                android:text="TextView"
+                android:textColor="#2B2929"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/abeezee"
+                android:text="TextView"
+                android:textColor="#2B2929"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_shareIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:contentDescription="Compartir este contenido"
+                android:onClick="compartirContenido"
+                android:src="@drawable/ic_share" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#DCD9D9"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DDDADA"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_sun"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_sun" />
+
+            <ImageView
+                android:id="@+id/iv_moon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/iv_sun"
+                app:layout_constraintStart_toStartOf="@+id/textField2"
+                app:layout_constraintTop_toBottomOf="@+id/textField2"
+                tools:src="@drawable/ic_moon" />
+
+            <ImageButton
+                android:id="@+id/ib_indifferent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/indiferente"
+                android:contentDescription="Botón con imagen"
+                app:layout_constraintEnd_toStartOf="@+id/ib_glad"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ib_sad"
+                app:layout_constraintTop_toTopOf="@+id/ib_very_happy" />
+
+
+            <ImageButton
+                android:id="@+id/ib_glad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/contento"
+                android:contentDescription="Botón con imagen"
+                app:layout_constraintEnd_toStartOf="@+id/ib_very_happy"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ib_indifferent"
+                app:layout_constraintTop_toTopOf="@+id/ib_very_happy" />
+
+            <ImageButton
+                android:id="@+id/ib_very_happy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/muy_contento"
+                android:contentDescription="Botón con imagen"
+                app:layout_constraintEnd_toEndOf="@+id/textField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ib_glad"
+                app:layout_constraintTop_toBottomOf="@+id/textField" />
+
+            <ImageButton
+                android:id="@+id/ib_sad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/triste"
+                android:contentDescription="Botón con imagen"
+                app:layout_constraintEnd_toStartOf="@+id/ib_indifferent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ib_crying"
+                app:layout_constraintTop_toTopOf="@+id/ib_very_happy" />
+
+            <ImageButton
+                android:id="@+id/ib_crying"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/llorando"
+                android:contentDescription="Botón con imagen"
+                app:layout_constraintEnd_toStartOf="@+id/ib_sad"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/textField"
+                app:layout_constraintTop_toTopOf="@+id/ib_very_happy" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="g"
+                android:text="@string/bt_entry_save"
+                app:backgroundTint="#9E9C9C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ib_very_happy" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/hint_entry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/iv_sun"
+                app:layout_constraintTop_toBottomOf="@+id/iv_sun">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/hint_entry"
+                app:layout_constraintEnd_toEndOf="@+id/textField2"
+                app:layout_constraintStart_toStartOf="@+id/textField2"
+                app:layout_constraintTop_toBottomOf="@+id/iv_moon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_phrase_sun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="17dp"
+                android:fontFamily="@font/abeezee"
+                android:text="TextView"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textField2"
+                app:layout_constraintStart_toEndOf="@+id/iv_sun"
+                app:layout_constraintTop_toTopOf="@+id/iv_sun" />
+
+            <TextView
+                android:id="@+id/tv_phrase_moon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="17dp"
+                android:fontFamily="@font/abeezee"
+                android:text="TextView"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textField"
+                app:layout_constraintStart_toEndOf="@+id/iv_moon"
+                app:layout_constraintTop_toTopOf="@+id/iv_moon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
