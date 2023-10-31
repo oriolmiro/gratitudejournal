@@ -66,4 +66,8 @@ public class SettingsManager {
         // Obtiene el valor de la variable "onboarding_finish" desde SharedPreferences
         return sharedPreferences.getBoolean(KEY_ONBOARDING_FINISH, false);
     }
+    public String getUserId() {
+        // Obtiene el valor de "user_id" desde SharedPreferences
+        return sharedPreferences.getString(KEY_USER_ID, null);
+    }
 }
