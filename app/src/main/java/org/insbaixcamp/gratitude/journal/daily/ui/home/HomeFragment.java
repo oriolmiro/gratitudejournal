@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,11 +37,17 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = binding.rcvJournalEntry;
         List<JournalEntry> journalEntries = obtenerJournalEntries(); // Llama a tu método para obtener los datos
         EntryAdapter adapter = new EntryAdapter(journalEntries, getContext());
-        Log.i("HOLA",journalEntries.toString());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
+binding.btnWriteEntry.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        NavController navController = navHostFragment.getNavController();
+        navController.navigate(R.id.navigation_journal);
+    }
+});
         return root;
     }
 

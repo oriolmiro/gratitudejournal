@@ -58,7 +58,6 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         }
 
         public void bind(JournalEntry entry) {
-            Log.i("ADEU",entry.toString());
             dateTextView.setText(entry.getDate());
             titleTextView.setText(entry.getTitle());
             contentTextView.setText(entry.getContent());
