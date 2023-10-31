@@ -50,10 +50,11 @@ public class Onboarding0Fragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
 
-      if (openCount == 1 && settingsManager.isOnboardingFinished()) {
+      if (!settingsManager.isOnboardingFinished()) {
             navController.navigate(R.id.navigation_onboarding);
         }
       else{
+          ((MainActivity)getContext()).binding.navView.setVisibility(View.VISIBLE); // O View.VISIBLE para mostrarlo nuevamente
           navController.navigate(R.id.navigation_home);
 
       }

@@ -23,8 +23,10 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentOnboarding3Binding;
+import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 
 public class Onboarding3Fragment extends Fragment {
 
@@ -71,14 +73,18 @@ public class Onboarding3Fragment extends Fragment {
 
                 if (!userName.isEmpty()) {
                     // Guardar el nombre de usuario en SharedPreferences
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("userName", userName);
-                    editor.apply();
+
+                    SettingsManager settingsManager = new SettingsManager(getContext());
+                    settingsManager.setUserName(userName);
+                    settingsManager.onboardingFinish();
+
 
                     // Navegar a la pantalla de inicio
                     NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
                     NavController navController = navHostFragment.getNavController();
+                    //Esconder BottonNavigationBar
+                    ((MainActivity)getContext()).binding.navView.setVisibility(View.VISIBLE); // O View.VISIBLE para mostrarlo nuevamente
+
                     navController.navigate(R.id.navigation_home);
                 } else {
 

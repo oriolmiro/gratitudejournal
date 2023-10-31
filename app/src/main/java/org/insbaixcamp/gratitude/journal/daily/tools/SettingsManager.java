@@ -2,6 +2,7 @@ package org.insbaixcamp.gratitude.journal.daily.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -9,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsManager {
+    private static final String KEY_USER_NAME = "user_name";
     private final String PREF_NAME;
     private static final String KEY_OPEN_COUNT = "open_count"; // Clave para almacenar el contador
     private static final String KEY_USER_ID = "user_id";
@@ -17,18 +19,20 @@ public class SettingsManager {
     private final SharedPreferences.Editor editor;
     private final FirebaseAuth firebaseAuth;
     public String userId;
+    private Context context;
 
     public SettingsManager(Context context) {
         PREF_NAME = context.getPackageName().replaceAll("\\.", "_") + "_prefs";
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
         editor = sharedPreferences.edit();
+        this.context = context;
     }
 
     public int addCount() {
         // Obtiene el valor actual del contador
         int currentCount = sharedPreferences.getInt(KEY_OPEN_COUNT, 0);
-
+        //Toast.makeText(this.context,"count: "+ currentCount,Toast.LENGTH_LONG).show();
         // Incrementa el contador en uno
         currentCount++;
 
@@ -69,5 +73,13 @@ public class SettingsManager {
     public String getUserId() {
         // Obtiene el valor de "user_id" desde SharedPreferences
         return sharedPreferences.getString(KEY_USER_ID, null);
+    }
+    public String getUserName() {
+        // Obtiene el valor de "user_id" desde SharedPreferences
+        return sharedPreferences.getString(KEY_USER_NAME, null);
+    }
+    public void setUserName(String name) {
+
+        sharedPreferences.edit().putString(KEY_USER_NAME, name).apply();
     }
 }
