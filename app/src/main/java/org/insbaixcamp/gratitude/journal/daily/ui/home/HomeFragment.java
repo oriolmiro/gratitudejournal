@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
 import org.insbaixcamp.gratitude.journal.daily.model.JournalEntry;
@@ -40,14 +41,19 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-binding.btnWriteEntry.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-        NavController navController = navHostFragment.getNavController();
-        navController.navigate(R.id.navigation_journal);
-    }
-});
+        List<Fragment> fragments = getActivity().getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            Log.d("DEBUG_TAG", "Fragment: " + fragment.getClass().getSimpleName());
+        }
+        binding.btnWriteEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+                //NavController navController = navHostFragment.getNavController();
+                Navigation.findNavController(v).navigate(R.id.action_navigation_home_to_navigation_journal);
+                //MainActivity.navController.navigate(R.id.action_navigation_home_to_navigation_journal);
+            }
+        });
         return root;
     }
 

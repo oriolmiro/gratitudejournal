@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public ActivityMainBinding binding;
     private FirebaseAnalytics mFirebaseAnalytics;
     public BottomNavigationView navView;
+    public static NavController navController;
 
 
     @Override
@@ -33,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         navView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_onboarding0,R.id.navigation_onboarding,
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_onboarding0,R.id.navigation_onboarding,
+        //        R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+        //        .build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 

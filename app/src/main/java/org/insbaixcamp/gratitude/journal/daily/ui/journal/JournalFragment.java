@@ -8,15 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.insbaixcamp.gratitude.journal.daily.R;
+import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
+import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentJournalBinding;
+
+import java.util.List;
 
 public class JournalFragment extends Fragment {
 
     private JournalViewModel mViewModel;
+    private FragmentJournalBinding binding;
 
     public static JournalFragment newInstance() {
         return new JournalFragment();
@@ -25,7 +31,15 @@ public class JournalFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_journal, container, false);
+        binding = FragmentJournalBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        List<Fragment> fragments = getActivity().getSupportFragmentManager().getFragments();
+        for(Fragment fragment : fragments){
+            Log.d("DEBUG_TAG", "Fragment: " + fragment.getClass().getSimpleName());
+        }
+
+        return root;
     }
 
     @Override

@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="org.insbaixcamp.gratitude.journal.daily.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_journal"
+            app:destination="@id/navigation_journal"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -31,7 +38,11 @@
         android:id="@+id/navigation_journal"
         android:name="org.insbaixcamp.gratitude.journal.daily.ui.journal.JournalFragment"
         android:label="fragment_journal"
-        tools:layout="@layout/fragment_journal" />
+        tools:layout="@layout/fragment_journal" >
+        <action
+            android:id="@+id/action_navigation_journal_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_onboarding"
         android:name="org.insbaixcamp.gratitude.journal.daily.ui.onboarding.OnboardingFragment"
