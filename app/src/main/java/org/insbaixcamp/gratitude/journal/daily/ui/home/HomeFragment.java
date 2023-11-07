@@ -67,8 +67,8 @@ public class HomeFragment extends Fragment {
         List<JournalEntry> entries = new ArrayList<>();
 
         // Agrega tus entradas de ejemplo o datos reales aquí
-        entries.add(new JournalEntry("2023-10-27", "Día soleado", "Hoy fue un hermoso día soleado.", R.drawable.llorando));
-        entries.add(new JournalEntry("2023-10-26", "Reunión importante", "Tuve una reunión importante en la oficina.", R.drawable.indiferente));
+        entries.add(new JournalEntry("2023-10-27", ""," "," "," ","Día soleado", "Hoy fue un hermoso día soleado.", R.drawable.llorando));
+        entries.add(new JournalEntry("2023-10-26",""," "," "," ", "Reunión importante", "Tuve una reunión importante en la oficina.", R.drawable.indiferente));
 
         // Agrega más entradas según sea necesario
 

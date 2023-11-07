@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import org.insbaixcamp.gratitude.journal.daily.databinding.ActivityMainBinding;
+import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         navView = binding.navView;
+        new SettingsManager(this).userAuth();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_onboarding0,R.id.navigation_onboarding,

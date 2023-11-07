@@ -8,7 +8,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 public class SettingsManager {
     private static final String KEY_USER_NAME = "user_name";
     private final String PREF_NAME;
