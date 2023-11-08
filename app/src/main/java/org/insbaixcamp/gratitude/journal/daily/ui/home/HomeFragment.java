@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,13 +21,20 @@ import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
 import org.insbaixcamp.gratitude.journal.daily.model.JournalEntry;
+import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private TextView tvDateToday;
+    private TextView tvMessageDay;
+    private SettingsManager settingsManager;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +43,13 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        tvDateToday = root.findViewById(R.id.tv_date_today);
+        tvMessageDay = root.findViewById(R.id.tv_message_day);
+
+        settingsManager = new SettingsManager(getContext());
+
+        actualizarFecha();
+        mostrarSaludoSegunHora();
         RecyclerView recyclerView = binding.rcvJournalEntry;
         List<JournalEntry> journalEntries = obtenerJournalEntries(); // Llama a tu método para obtener los datos
         EntryAdapter adapter = new EntryAdapter(journalEntries, getContext());
@@ -67,12 +82,46 @@ public class HomeFragment extends Fragment {
         List<JournalEntry> entries = new ArrayList<>();
 
         // Agrega tus entradas de ejemplo o datos reales aquí
-        entries.add(new JournalEntry("2023-10-27", ""," "," "," ","Día soleado", "Hoy fue un hermoso día soleado.", R.drawable.llorando));
-        entries.add(new JournalEntry("2023-10-26",""," "," "," ", "Reunión importante", "Tuve una reunión importante en la oficina.", R.drawable.indiferente));
+        entries.add(new JournalEntry("2023-10-27", "Día soleado", "Hoy fue un hermoso día soleado.", R.drawable.llorando));
+        entries.add(new JournalEntry("2023-10-26", "Reunión importante", "Tuve una reunión importante en la oficina.", R.drawable.indiferente));
 
         // Agrega más entradas según sea necesario
 
         return entries;
+    }
+
+    private void actualizarFecha() {
+        // Obtener la fecha actual y formatearla
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE dd, MMMM yyyy");
+        String currentDate = dateFormat.format(new Date());
+
+        // Establecer la fecha en el TextView
+        tvDateToday.setText(currentDate);
+    }
+
+    private void mostrarSaludoSegunHora() {
+        // Obtener la fecha actual y formatearla
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH");
+        int currentHour = Integer.parseInt(dateFormat.format(new Date()));
+        String currentDate = dateFormat.format(new Date());
+
+        // Obtener el nombre del usuario desde SettingsManager
+        String userName = settingsManager.getUserName();
+
+        String greeting;
+        if (currentHour >= 0 && currentHour < 12) {
+            greeting = "Buenos días";
+        } else if (currentHour >= 12 && currentHour < 18) {
+            greeting = "Buenas tardes";
+        } else {
+            greeting = "Buenas noches";
+        }
+
+        // Crear el mensaje combinando el saludo y el nombre del usuario
+        String message = greeting + ", " + userName;
+
+        // Establecer la fecha y el mensaje en los TextViews
+        tvMessageDay.setText(message);
     }
 
 }

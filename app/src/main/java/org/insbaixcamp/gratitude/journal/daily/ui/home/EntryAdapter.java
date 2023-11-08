@@ -1,6 +1,7 @@
 package org.insbaixcamp.gratitude.journal.daily.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,9 +59,11 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
 
         public void bind(JournalEntry entry) {
             dateTextView.setText(entry.getDate());
-            titleTextView.setText(entry.getTitleSun());
-            contentTextView.setText(entry.getMessageSun());
-            iconImageView.setImageResource(entry.getFeeling());
+            titleTextView.setText(entry.getTitle());
+            contentTextView.setText(entry.getContent());
+
+            // Cargar la imagen directamente desde res/drawable
+            iconImageView.setImageResource(entry.getIconResource());
         }
     }
 }

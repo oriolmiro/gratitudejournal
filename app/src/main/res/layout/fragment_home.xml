@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#C2C2C2"
             android:gravity="center"
             android:orientation="vertical">
@@ -46,7 +46,6 @@
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/abeezee"
                 android:gravity="center"
-                android:paddingBottom="16dp"
                 android:text="Good morning, afternoon, evening, edgar"
                 android:textColor="#2B2929"
                 android:textSize="18dp"
@@ -56,11 +55,11 @@
                 android:id="@+id/btn_write_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#323131"
                 android:fontFamily="@font/abeezee"
-                android:text="Start Today Journal"
-                android:visibility="visible" />
+                android:text="Start Today Journal" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
