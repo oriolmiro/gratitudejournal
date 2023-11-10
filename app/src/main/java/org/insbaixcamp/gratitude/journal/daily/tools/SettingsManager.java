@@ -16,7 +16,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import org.insbaixcamp.gratitude.journal.daily.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -198,5 +201,11 @@ public class SettingsManager {
         ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
         actManager.getMemoryInfo(memInfo);
         return memInfo.totalMem;
+    }
+    public void saveUserToFirebase() {
+        // Obtiene una referencia a la base de datos de Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference("users").child(this.getUserId()).setValue(new User(this.getUserId(),this.getUserName(),this.gatherDeviceInfo()));
+
     }
 }

@@ -46,6 +46,7 @@ public class Onboarding0Fragment extends Fragment {
 
     private void navigateToOnboardingFragment() {
         SettingsManager settingsManager = new SettingsManager(getContext()); // Suponiendo que tienes una instancia de SettingsManager
+        settingsManager.userAuth();
         int openCount = settingsManager.addCount();
         Log.i("ASDF",settingsManager.gatherDeviceInfo().toString());
 

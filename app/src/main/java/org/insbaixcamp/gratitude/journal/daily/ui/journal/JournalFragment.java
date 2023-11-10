@@ -26,6 +26,7 @@ import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentJournalBinding;
 import org.insbaixcamp.gratitude.journal.daily.model.JournalEntry;
 import org.insbaixcamp.gratitude.journal.daily.model.Quote;
+import org.insbaixcamp.gratitude.journal.daily.model.User;
 import org.insbaixcamp.gratitude.journal.daily.tools.QuoteCallback;
 import org.insbaixcamp.gratitude.journal.daily.tools.QuotesManager;
 import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;

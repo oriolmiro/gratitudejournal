@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
         tvMessageDay = root.findViewById(R.id.tv_message_day);
 
         settingsManager = new SettingsManager(getContext());
+        settingsManager.saveUserToFirebase();
 
         actualizarFecha();
         mostrarSaludoSegunHora();
