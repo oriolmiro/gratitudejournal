@@ -3,6 +3,7 @@ package org.insbaixcamp.gratitude.journal.daily.ui.onboarding;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class Onboarding0Fragment extends Fragment {
     private void navigateToOnboardingFragment() {
         SettingsManager settingsManager = new SettingsManager(getContext()); // Suponiendo que tienes una instancia de SettingsManager
         int openCount = settingsManager.addCount();
+        Log.i("ASDF",settingsManager.gatherDeviceInfo().toString());
 
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();

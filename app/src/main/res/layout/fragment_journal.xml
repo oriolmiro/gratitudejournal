@@ -6,246 +6,264 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.journal.JournalFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#B3B0B0"
-
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_entry_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/abeezee"
-                android:maxLines="1"
-                android:text="TextView"
-                android:textColor="#2B2929"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_entry_phrase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/abeezee"
-                android:text="TextView"
-                android:textColor="#2B2929"
-                android:textSize="34sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/abeezee"
-                android:text="TextView"
-                android:textColor="#2B2929"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/iv_shareIcon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:contentDescription="Compartir este contenido"
-                android:onClick="compartirContenido"
-                android:src="@drawable/ic_share" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#DCD9D9"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollConstrain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#DDDADA"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_sun"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="30dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_quote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/ic_sun"/>
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_moon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintEnd_toEndOf="@+id/iv_sun"
-                app:layout_constraintStart_toStartOf="@+id/tl_message_sun"
-                app:layout_constraintTop_toBottomOf="@+id/tl_message_sun"
-                android:background="@drawable/ic_moon" />
-
-            <ImageButton
-                android:id="@+id/ib_feeling3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/indiferente"
-                android:contentDescription="Botón con imagen"
-                app:layout_constraintEnd_toStartOf="@+id/ib_feeling4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ib_feeling2"
-                app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
-
-
-            <ImageButton
-                android:id="@+id/ib_feeling4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/contento"
-                android:contentDescription="Botón con imagen"
-                app:layout_constraintEnd_toStartOf="@+id/ib_feeling5"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ib_feeling3"
-                app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
-
-            <ImageButton
-                android:id="@+id/ib_feeling5"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/muy_contento"
-                android:contentDescription="Botón con imagen"
-                app:layout_constraintEnd_toEndOf="@+id/tl_message_moon"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ib_feeling4"
-                app:layout_constraintTop_toBottomOf="@+id/tl_message_moon" />
-
-            <ImageButton
-                android:id="@+id/ib_feeling2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/triste"
-                android:contentDescription="Botón con imagen"
-                app:layout_constraintEnd_toStartOf="@+id/ib_feeling3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ib_feeling1"
-                app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
-
-            <ImageButton
-                android:id="@+id/ib_feeling1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/llorando"
-                android:contentDescription="Botón con imagen"
-                app:layout_constraintEnd_toStartOf="@+id/ib_feeling2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tl_message_moon"
-                app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="g"
-                android:text="@string/bt_entry_save"
-                app:backgroundTint="#9E9C9C"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ib_feeling5" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tl_message_sun"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:hint="@string/hint_entry"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/iv_sun"
-                app:layout_constraintTop_toBottomOf="@+id/iv_sun">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/te_message_sun"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="#B3B0B0"
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tl_message_moon"
-                android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tv_entry_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/abeezee"
+                        android:maxLines="1"
+                        android:text="TextView"
+                        android:textColor="#2B2929"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_entry_phrase"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/abeezee"
+                        android:text="TextView"
+                        android:textColor="#2B2929"
+                        android:textSize="34sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/abeezee"
+                        android:text="TextView"
+                        android:textColor="#2B2929"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_shareIcon"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:clickable="true"
+                        android:contentDescription="Compartir este contenido"
+                        android:onClick="compartirContenido"
+                        android:src="@drawable/ic_share" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_phrase"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/hint_entry"
-                app:layout_constraintEnd_toEndOf="@+id/tl_message_sun"
-                app:layout_constraintStart_toStartOf="@+id/tl_message_sun"
-                app:layout_constraintTop_toBottomOf="@+id/iv_moon">
+                android:layout_marginBottom="52dp"
+                android:background="#DCD9D9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_quote">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/te_message_moon"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="#DDDADA"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <ImageView
+                        android:id="@+id/iv_sun"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/ic_sun"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_phrase_sun"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="17dp"
-                android:fontFamily="@font/abeezee"
-                android:text="TextView"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/tl_message_sun"
-                app:layout_constraintStart_toEndOf="@+id/iv_sun"
-                app:layout_constraintTop_toTopOf="@+id/iv_sun" />
+                    <ImageView
+                        android:id="@+id/iv_moon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/ic_moon"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_sun"
+                        app:layout_constraintStart_toStartOf="@+id/tl_message_sun"
+                        app:layout_constraintTop_toBottomOf="@+id/tl_message_sun" />
 
-            <TextView
-                android:id="@+id/tv_phrase_moon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="17dp"
-                android:fontFamily="@font/abeezee"
-                android:text="TextView"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/tl_message_moon"
-                app:layout_constraintStart_toEndOf="@+id/iv_moon"
-                app:layout_constraintTop_toTopOf="@+id/iv_moon" />
+                    <ImageButton
+                        android:id="@+id/ib_feeling3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/indiferente"
+                        android:contentDescription="Botón con imagen"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_feeling4"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/ib_feeling2"
+                        app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
 
+
+                    <ImageButton
+                        android:id="@+id/ib_feeling4"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/contento"
+                        android:contentDescription="Botón con imagen"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_feeling5"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/ib_feeling3"
+                        app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
+
+                    <ImageButton
+                        android:id="@+id/ib_feeling5"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/muy_contento"
+                        android:contentDescription="Botón con imagen"
+                        app:layout_constraintEnd_toEndOf="@+id/tl_message_moon"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/ib_feeling4"
+                        app:layout_constraintTop_toBottomOf="@+id/tl_message_moon" />
+
+                    <ImageButton
+                        android:id="@+id/ib_feeling2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/triste"
+                        android:contentDescription="Botón con imagen"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_feeling3"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/ib_feeling1"
+                        app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
+
+                    <ImageButton
+                        android:id="@+id/ib_feeling1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/llorando"
+                        android:contentDescription="Botón con imagen"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_feeling2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tl_message_moon"
+                        app:layout_constraintTop_toTopOf="@+id/ib_feeling5" />
+
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/fab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="15dp"
+                        android:contentDescription="g"
+                        android:gravity="center"
+                        android:text="@string/bt_entry_save"
+                        app:backgroundTint="#9E9C9C"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ib_feeling5" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tl_message_sun"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:hint="@string/hint_entry"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/iv_sun"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_sun">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/te_message_sun"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tl_message_moon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/hint_entry"
+                        app:layout_constraintEnd_toEndOf="@+id/tl_message_sun"
+                        app:layout_constraintStart_toStartOf="@+id/tl_message_sun"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_moon">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/te_message_moon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_phrase_sun"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="17dp"
+                        android:fontFamily="@font/abeezee"
+                        android:text="TextView"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/tl_message_sun"
+                        app:layout_constraintStart_toEndOf="@+id/iv_sun"
+                        app:layout_constraintTop_toTopOf="@+id/iv_sun" />
+
+                    <TextView
+                        android:id="@+id/tv_phrase_moon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="17dp"
+                        android:fontFamily="@font/abeezee"
+                        android:text="TextView"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/tl_message_moon"
+                        app:layout_constraintStart_toEndOf="@+id/iv_moon"
+                        app:layout_constraintTop_toTopOf="@+id/iv_moon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

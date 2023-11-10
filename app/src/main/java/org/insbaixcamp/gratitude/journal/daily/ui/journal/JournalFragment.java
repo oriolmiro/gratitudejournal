@@ -25,6 +25,9 @@ import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentJournalBinding;
 import org.insbaixcamp.gratitude.journal.daily.model.JournalEntry;
+import org.insbaixcamp.gratitude.journal.daily.model.Quote;
+import org.insbaixcamp.gratitude.journal.daily.tools.QuoteCallback;
+import org.insbaixcamp.gratitude.journal.daily.tools.QuotesManager;
 import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 
 import java.text.DateFormat;
@@ -40,6 +43,7 @@ public class JournalFragment extends Fragment {
     private FragmentJournalBinding binding;
     private int numeroGuardado = 0;
     private ImageButton botonAnimado = null;
+
     public static JournalFragment newInstance() {
         return new JournalFragment();
     }
@@ -64,6 +68,19 @@ public class JournalFragment extends Fragment {
         }
         CharSequence formatteDate = DateFormat.getDateInstance().format(date);
         binding.tvEntryDate.setText(formatteDate);
+
+        new QuotesManager().getQuoteOfTheDay(new QuoteCallback() {
+            @Override
+            public void onCallback(Quote quote) {
+                binding.tvEntryPhrase.setText(quote.getPhrase());
+                binding.tvAuthor.setText(quote.getAuthor());
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("JournalFragmentFirebaseQuote",error);
+            }
+        });
 
 
         SettingsManager settingsManagerInstance = new SettingsManager(getContext());
