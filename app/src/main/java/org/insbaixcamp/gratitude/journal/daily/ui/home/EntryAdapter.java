@@ -59,11 +59,19 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
 
         public void bind(JournalEntry entry) {
             dateTextView.setText(entry.getDate());
-            titleTextView.setText(entry.getTitle());
-            contentTextView.setText(entry.getContent());
-
-            // Cargar la imagen directamente desde res/drawable
-            iconImageView.setImageResource(entry.getIconResource());
+            titleTextView.setText(entry.getTitleSun());
+            contentTextView.setText(entry.getMessageSun());
+            if (entry.getFeeling() == 1) {
+                iconImageView.setImageResource(R.drawable.llorando);
+            } else if (entry.getFeeling() == 2) {
+                iconImageView.setImageResource(R.drawable.triste);
+            } else if (entry.getFeeling() == 3) {
+                iconImageView.setImageResource(R.drawable.indiferente);
+            } else if (entry.getFeeling() == 4) {
+                iconImageView.setImageResource(R.drawable.contento);
+            } else if (entry.getFeeling() == 5) {
+                iconImageView.setImageResource(R.drawable.muy_contento);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
@@ -35,7 +42,9 @@ public class HomeFragment extends Fragment {
     private TextView tvMessageDay;
     private SettingsManager settingsManager;
 
-
+    private EntryAdapter adapter;
+    private RecyclerView recyclerView;
+    List<JournalEntry> journalArray;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -50,16 +59,19 @@ public class HomeFragment extends Fragment {
 
         actualizarFecha();
         mostrarSaludoSegunHora();
-        RecyclerView recyclerView = binding.rcvJournalEntry;
-        List<JournalEntry> journalEntries = obtenerJournalEntries(); // Llama a tu método para obtener los datos
-        EntryAdapter adapter = new EntryAdapter(journalEntries, getContext());
+
+        // Recupera el RecyclerView del archivo de diseño
+        recyclerView = binding.rcvJournalEntry;
+
+
+        // Configura el RecyclerView con un LinearLayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        List<Fragment> fragments = getActivity().getSupportFragmentManager().getFragments();
-        for (Fragment fragment : fragments) {
-            Log.d("DEBUG_TAG", "Fragment: " + fragment.getClass().getSimpleName());
-        }
+        // Inicializa el adaptador con una lista vacía
+        journalArray = new ArrayList<>();
+
+        // Llama a tu método para obtener los datos desde Firebase
+        obtenerJournalEntriesDesdeFirebase();
+
         binding.btnWriteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,16 +90,44 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    private List<JournalEntry> obtenerJournalEntries() {
-        List<JournalEntry> entries = new ArrayList<>();
+    private void obtenerJournalEntriesDesdeFirebase() {
 
-        // Agrega tus entradas de ejemplo o datos reales aquí
-        entries.add(new JournalEntry("2023-10-27", "Día soleado", "Hoy fue un hermoso día soleado.", R.drawable.llorando));
-        entries.add(new JournalEntry("2023-10-26", "Reunión importante", "Tuve una reunión importante en la oficina.", R.drawable.indiferente));
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaActual = dateFormat.format(currentDate);
 
-        // Agrega más entradas según sea necesario
+        SettingsManager settingsManagerInstance = new SettingsManager(getContext());
+        String userId = settingsManagerInstance.getUserId();
 
-        return entries;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference journalEntriesRef = database.getReference("journal/" + userId + "/");
+
+        journalEntriesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                journalArray.clear();
+                for (DataSnapshot entrySnapshot : dataSnapshot.getChildren()) {
+                    // Usar DataSnapshot para obtener los valores directamente
+
+                    JournalEntry entry = entrySnapshot.getValue(JournalEntry.class);
+
+                    journalArray.add(entry);
+                }
+
+                // Inicializa el adaptador con los datos obtenidos
+                adapter = new EntryAdapter(journalArray, getContext());
+
+                // Asigna el adaptador al RecyclerView
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged(); // Notifica al RecyclerView que se han realizado cambios en los datos
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Manejar errores de lectura desde Firebase
+            }
+        });
     }
 
     private void actualizarFecha() {
