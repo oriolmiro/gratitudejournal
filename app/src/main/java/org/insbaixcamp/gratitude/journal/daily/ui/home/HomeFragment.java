@@ -1,20 +1,17 @@
-// HomeFragment.java
 package org.insbaixcamp.gratitude.journal.daily.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,18 +21,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.insbaixcamp.gratitude.journal.daily.MainActivity;
 import org.insbaixcamp.gratitude.journal.daily.R;
 import org.insbaixcamp.gratitude.journal.daily.databinding.FragmentHomeBinding;
 import org.insbaixcamp.gratitude.journal.daily.model.JournalEntry;
 import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
+import org.insbaixcamp.gratitude.journal.daily.ui.journal.JournalFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements EntryAdapter.OnItemClickListener {
 
     private FragmentHomeBinding binding;
     private TextView tvDateToday;
@@ -45,11 +42,9 @@ public class HomeFragment extends Fragment {
     private EntryAdapter adapter;
     private RecyclerView recyclerView;
     List<JournalEntry> journalArray;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         tvDateToday = root.findViewById(R.id.tv_date_today);
@@ -60,26 +55,34 @@ public class HomeFragment extends Fragment {
 
         actualizarFecha();
         mostrarSaludoSegunHora();
+        compararFechaDeHoyConUltimoEntry();
 
         // Recupera el RecyclerView del archivo de diseño
         recyclerView = binding.rcvJournalEntry;
 
-
         // Configura el RecyclerView con un LinearLayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         // Inicializa el adaptador con una lista vacía
         journalArray = new ArrayList<>();
 
         // Llama a tu método para obtener los datos desde Firebase
         obtenerJournalEntriesDesdeFirebase();
 
+        // Inicializa el adaptador con los datos obtenidos
+        adapter = new EntryAdapter(journalArray, getContext());
+
+        // Agrega el listener al adaptador
+        adapter.setOnItemClickListener(this);
+
+        // Asigna el adaptador al RecyclerView
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged(); // Notifica al RecyclerView que se han realizado cambios en los datos
+
         binding.btnWriteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-                //NavController navController = navHostFragment.getNavController();
                 Navigation.findNavController(v).navigate(R.id.action_navigation_home_to_navigation_journal);
-                //MainActivity.navController.navigate(R.id.action_navigation_home_to_navigation_journal);
             }
         });
         return root;
@@ -92,11 +95,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void obtenerJournalEntriesDesdeFirebase() {
-
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String fechaActual = dateFormat.format(currentDate);
-
         SettingsManager settingsManagerInstance = new SettingsManager(getContext());
         String userId = settingsManagerInstance.getUserId();
 
@@ -106,22 +104,12 @@ public class HomeFragment extends Fragment {
         journalEntriesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 journalArray.clear();
                 for (DataSnapshot entrySnapshot : dataSnapshot.getChildren()) {
-                    // Usar DataSnapshot para obtener los valores directamente
-
                     JournalEntry entry = entrySnapshot.getValue(JournalEntry.class);
-
                     journalArray.add(entry);
                 }
-
-                // Inicializa el adaptador con los datos obtenidos
-                adapter = new EntryAdapter(journalArray, getContext());
-
-                // Asigna el adaptador al RecyclerView
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged(); // Notifica al RecyclerView que se han realizado cambios en los datos
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -144,7 +132,6 @@ public class HomeFragment extends Fragment {
         // Obtener la fecha actual y formatearla
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH");
         int currentHour = Integer.parseInt(dateFormat.format(new Date()));
-        String currentDate = dateFormat.format(new Date());
 
         // Obtener el nombre del usuario desde SettingsManager
         String userName = settingsManager.getUserName();
@@ -165,4 +152,66 @@ public class HomeFragment extends Fragment {
         tvMessageDay.setText(message);
     }
 
+    private void compararFechaDeHoyConUltimoEntry() {
+        obtenerUltimoJournalEntryDesdeFirebase(new FirebaseCallback() {
+            @Override
+            public void onCallback(JournalEntry ultimoEntry) {
+                if (ultimoEntry != null) {
+                    String fechaUltimoEntry = ultimoEntry.getDate();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    String fechaHoy = dateFormat.format(new Date());
+
+                    if (fechaUltimoEntry != null && fechaHoy != null && fechaUltimoEntry.equals(fechaHoy)) {
+                        binding.btnWriteEntry.setVisibility(View.GONE);
+                    } else {
+                        binding.btnWriteEntry.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+    }
+
+    private void obtenerUltimoJournalEntryDesdeFirebase(FirebaseCallback callback) {
+        String userId = settingsManager.getUserId();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference journalEntriesRef = database.getReference("journal/" + userId);
+
+        journalEntriesRef.orderByChild("timestamp")
+                .limitToLast(1)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            DataSnapshot ultimoEntrySnapshot = dataSnapshot.getChildren().iterator().next();
+                            JournalEntry ultimoEntry = ultimoEntrySnapshot.getValue(JournalEntry.class);
+                            callback.onCallback(ultimoEntry);
+                        } else {
+                            callback.onCallback(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        callback.onCallback(null);
+                    }
+                });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        JournalEntry selectedEntry = journalArray.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedEntry", (Parcelable) selectedEntry);
+
+        // Utiliza el NavController para navegar hacia JournalFragment
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.action_navigation_home_to_navigation_journal, bundle);
+    }
+
+
+
+    private interface FirebaseCallback {
+        void onCallback(JournalEntry ultimoEntry);
+    }
 }

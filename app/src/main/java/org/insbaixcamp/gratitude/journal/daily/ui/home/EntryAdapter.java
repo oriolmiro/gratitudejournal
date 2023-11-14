@@ -19,6 +19,7 @@ import java.util.List;
 public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> {
     private List<JournalEntry> entries;
     private Context context;
+    private OnItemClickListener onItemClickListener; // Agregado
 
     public EntryAdapter(List<JournalEntry> entries, Context context) {
         this.entries = entries;
@@ -36,11 +37,31 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         JournalEntry entry = entries.get(position);
         holder.bind(entry);
+
+        // Agregado: Configura el clic en el elemento
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return entries.size();
+    }
+
+    // Agregado: Define la interfaz OnItemClickListener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Agregado: Método para establecer el listener desde fuera del adaptador
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,3 +96,4 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         }
     }
 }
+

@@ -8,4 +8,6 @@
     <string name="cultivate_gratitude">Cultivate Gratitude</string>
     <string name="next">Next</string>
     <string name="whats_your_name">What\'s your name?</string>
+    <string name="tv_entry_sun">Today was a good day because:</string>
+    <string name="tv_entry_moon">Tonight I am thankful for:</string>
 </resources>
