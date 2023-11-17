@@ -14,7 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import org.insbaixcamp.gratitude.journal.daily.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     public ActivityMainBinding binding;
     private FirebaseAnalytics mFirebaseAnalytics;

@@ -109,6 +109,7 @@ public class HomeFragment extends Fragment implements EntryAdapter.OnItemClickLi
                     JournalEntry entry = entrySnapshot.getValue(JournalEntry.class);
                     journalArray.add(entry);
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -208,8 +209,6 @@ public class HomeFragment extends Fragment implements EntryAdapter.OnItemClickLi
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(R.id.action_navigation_home_to_navigation_journal, bundle);
     }
-
-
 
     private interface FirebaseCallback {
         void onCallback(JournalEntry ultimoEntry);

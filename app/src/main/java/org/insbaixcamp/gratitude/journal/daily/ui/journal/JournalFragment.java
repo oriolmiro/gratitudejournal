@@ -98,20 +98,20 @@ public class JournalFragment extends Fragment {
                 }
 
 
-            } else  {
-                new QuotesManager().getQuoteOfTheDay(new QuoteCallback() {
-                    @Override
-                    public void onCallback(Quote quote) {
-                        binding.tvEntryPhrase.setText(quote.getPhrase());
-                        binding.tvAuthor.setText(quote.getAuthor());
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        Log.e("JournalFragmentFirebaseQuote", error);
-                    }
-                });
             }
+        }  else  {
+            new QuotesManager().getQuoteOfTheDay(new QuoteCallback() {
+                @Override
+                public void onCallback(Quote quote) {
+                    binding.tvEntryPhrase.setText(quote.getPhrase());
+                    binding.tvAuthor.setText(quote.getAuthor());
+                }
+
+                @Override
+                public void onError(String error) {
+                    Log.e("JournalFragmentFirebaseQuote", error);
+                }
+            });
         }
         Log.d("TAGf", "Fecha actual: " + selectedEntryFecha);
 

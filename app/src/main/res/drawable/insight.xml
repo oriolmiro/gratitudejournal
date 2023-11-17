@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Estado predeterminado -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Fondo del drawable cuando no está activado -->
+            <solid android:color="@color/card" />
+
+            <!-- Bordes del drawable -->
+            <stroke
+                android:width="5dp"
+                android:color="@color/button" />
+
+            <!-- Esquina redondeada (opcional) -->
+            <corners android:radius="8dp" />
+        </shape>
+        <color android:color="#000000" />
+    </item>
+
+</selector>
