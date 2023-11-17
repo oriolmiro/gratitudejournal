@@ -23,12 +23,15 @@ import org.insbaixcamp.gratitude.journal.daily.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class SettingsManager {
     private static final String KEY_USER_NAME = "user_name";
     private final String PREF_NAME;
+    private static final String DATE_FIRST_TIME = "date_first_time";
     private static final String KEY_OPEN_COUNT = "open_count"; // Clave para almacenar el contador
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_ONBOARDING_FINISH = "onboarding_finish"; // Nueva clave
@@ -83,6 +86,15 @@ public class SettingsManager {
     public void onboardingFinish() {
         // Establece la variable "onboarding_finish" en SharedPreferences como "true"
         sharedPreferences.edit().putBoolean(KEY_ONBOARDING_FINISH, true).apply();
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaActual = dateFormat.format(currentDate);
+        sharedPreferences.edit().putString(DATE_FIRST_TIME, fechaActual).apply();
+
+    }
+    public String getDateFirstTime() {
+        return sharedPreferences.getString(DATE_FIRST_TIME, null);
+
     }
     public boolean isOnboardingFinished() {
         // Obtiene el valor de la variable "onboarding_finish" desde SharedPreferences

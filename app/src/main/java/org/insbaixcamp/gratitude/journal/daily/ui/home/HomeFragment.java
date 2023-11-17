@@ -2,6 +2,7 @@ package org.insbaixcamp.gratitude.journal.daily.ui.home;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment implements EntryAdapter.OnItemClickLi
                 }
 
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -139,11 +141,11 @@ public class HomeFragment extends Fragment implements EntryAdapter.OnItemClickLi
 
         String greeting;
         if (currentHour >= 0 && currentHour < 12) {
-            greeting = "Buenos días";
+            greeting = getString(R.string.good_morning);
         } else if (currentHour >= 12 && currentHour < 18) {
-            greeting = "Buenas tardes";
+            greeting = getString(R.string.good_afternoon);
         } else {
-            greeting = "Buenas noches";
+            greeting = getString(R.string.good_evening);
         }
 
         // Crear el mensaje combinando el saludo y el nombre del usuario

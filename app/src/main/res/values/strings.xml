@@ -10,4 +10,13 @@
     <string name="whats_your_name">What\'s your name?</string>
     <string name="tv_entry_sun">Today was a good day because:</string>
     <string name="tv_entry_moon">Tonight I am thankful for:</string>
+    <string name="total_entries">Total entries</string>
+    <string name="days_with_application">"Days with the application "</string>
+    <string name="days_application">"Days with the application "</string>
+    <string name="percentage_emotions">Percentage of emotions</string>
+    <string name="days">" days"</string>
+    <string name="entries">" entries"</string>
+    <string name="good_morning">Good morning</string>
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
 </resources>
