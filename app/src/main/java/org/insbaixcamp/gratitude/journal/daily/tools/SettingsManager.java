@@ -35,6 +35,7 @@ public class SettingsManager {
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
     private final FirebaseAuth firebaseAuth;
+    private static final String KEY_USER_EMAIL = "user_email";
     public String userId;
     private Context context;
 
@@ -205,7 +206,17 @@ public class SettingsManager {
     public void saveUserToFirebase() {
         // Obtiene una referencia a la base de datos de Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("users").child(this.getUserId()).setValue(new User(this.getUserId(),this.getUserName(),this.gatherDeviceInfo()));
+        User user;
+        user = new User(getUserId(),getUserName(),getUserEmail(),gatherDeviceInfo());
+        database.getReference("users").child(this.getUserId()).setValue(user);
 
+    }
+    public String getUserEmail() {
+        // Obtiene el valor de "user_email" desde SharedPreferences
+        return sharedPreferences.getString(KEY_USER_EMAIL, null);
+    }
+
+    public void setUserEmail(String email) {
+        sharedPreferences.edit().putString(KEY_USER_EMAIL, email).apply();
     }
 }

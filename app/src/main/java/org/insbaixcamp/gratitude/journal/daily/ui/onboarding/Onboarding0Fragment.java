@@ -25,11 +25,14 @@ public class Onboarding0Fragment extends Fragment {
         return new Onboarding0Fragment();
     }
 
+    SettingsManager settingsManager;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_onboarding0, container, false);
 
+        settingsManager = new SettingsManager(getContext()); // Suponiendo que tienes una instancia de SettingsManager
+        settingsManager.userAuth();
         //Esconder BottonNavigationBar
         //((MainActivity)getContext()).binding.navView.setVisibility(View.INVISIBLE); // O View.VISIBLE para mostrarlo nuevamente
 
@@ -45,8 +48,7 @@ public class Onboarding0Fragment extends Fragment {
     }
 
     private void navigateToOnboardingFragment() {
-        SettingsManager settingsManager = new SettingsManager(getContext()); // Suponiendo que tienes una instancia de SettingsManager
-        settingsManager.userAuth();
+
         int openCount = settingsManager.addCount();
         Log.i("ASDF",settingsManager.gatherDeviceInfo().toString());
 

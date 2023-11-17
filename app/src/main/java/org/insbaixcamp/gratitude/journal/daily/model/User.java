@@ -1,5 +1,6 @@
 package org.insbaixcamp.gratitude.journal.daily.model;
 
+import org.insbaixcamp.gratitude.journal.daily.tools.SettingsManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,10 +15,19 @@ public class User implements Serializable {
     private String deviceLanguage;
     private String deviceCountry;
     private String deviceTimezone;
+    private String email;
 
 
     public User() {
 
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAndroidVersion() {
@@ -99,6 +109,21 @@ public class User implements Serializable {
             throw new RuntimeException(e);
         }
     }
+    public User(String userId, String userName,String email,  JSONObject deviceInfo) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        try {
+            this.androidVersion = deviceInfo.getString("androidVersion");
+            this.deviceBrand = deviceInfo.getString("deviceBrand");
+            this.deviceModel = deviceInfo.getString("deviceModel");
+            this.deviceLanguage = deviceInfo.getString("deviceLanguage");
+            this.deviceCountry = deviceInfo.getString("deviceCountry");
+            this.deviceTimezone = deviceInfo.getString("deviceTimezone");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public String toString() {
@@ -111,6 +136,7 @@ public class User implements Serializable {
                 ", deviceLanguage='" + deviceLanguage + '\'' +
                 ", deviceCountry='" + deviceCountry + '\'' +
                 ", deviceTimezone='" + deviceTimezone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
